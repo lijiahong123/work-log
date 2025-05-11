@@ -1,0 +1,45 @@
+# version: "2.0"
+
+services:
+  #redis 服务
+  app_mongodb:
+    image: crpi-8r9va3057aiau44a.cn-chengdu.personal.cr.aliyuncs.com/mrli-1/mongo:latest # 要使用的镜像
+    container_name: "app_mongodb" # redis容器名称
+    restart: always #总是重启后启动
+    ports: # 相当于run命令中的-p参数
+      - "27017:27017"
+    volumes: # 定义容器和宿主机的卷映射关系, 其和 networks 一样可以位于 services 键的二级键和 compose.yml文件 顶级键, 如果需要跨服务间使用则在顶级键定义, 在 services 中引用
+      - /data/mongo/db:/data/db
+      - /data/mongo/log:/data/log
+    networks:
+      backend:
+        aliases:
+          - app_mongodb
+    
+  #mysql服务
+  app_nest:
+    image: crpi-8r9va3057aiau44a.cn-chengdu.personal.cr.aliyuncs.com/mrli-1/node:18-alpine
+    build: ./serve
+    container_name: "app_nest"
+    ports:
+      - "3000:3000"
+    restart: always
+    command: node /usr/src/app/dist/main.js 
+    networks:
+      backend:
+        aliases:
+          - app_nest
+
+  #  tomcat服务
+  app_web:
+    container_name: app_web
+    image: crpi-8r9va3057aiau44a.cn-chengdu.personal.cr.aliyuncs.com/mrli-1/nginx:1.27.2-alpine
+    build: ./web
+    #总是重启后启动
+    restart: always
+    #端口映射
+    ports:
+      - "80:80"
+      - "443:443"
+networks:
+  backend:

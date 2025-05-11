@@ -7,7 +7,7 @@ import { CatchEverythingFilter } from './http-filter/http-filter.filter';
 @Module({
   imports: [
     WorkModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/work-db'),
+    MongooseModule.forRoot('mongodb://app_mongodb:27017/work-db'),
   ],
   controllers: [],
   providers: [
