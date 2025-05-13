@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
+import { ElRow, ElCol, ElSpace, ElButton, ElSelect, ElOption, ElEmpty, ElProgress, ElCard } from 'element-plus'
 import { Plus, Edit, Download } from '@element-plus/icons-vue';
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
@@ -41,7 +42,7 @@ const statusAndColor = computed(() => {
     if (status === '999') {
       const obj = {
         color: '',
-        label: '',
+        label: ''
       }
       if (progress === 100) {
         obj.color = statusOptions[3].color
@@ -56,7 +57,6 @@ const statusAndColor = computed(() => {
       return obj
     }
     return statusOptions[status]
-
   }
 })
 

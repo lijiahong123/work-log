@@ -1,4 +1,4 @@
-import type { WorkItem } from '@/views/Home/home'
+import type { WorkItem } from '@renderer/views/Home/home'
 import request from './request'
 
 type FilterWorkType = {

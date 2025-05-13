@@ -1,23 +1,44 @@
 appId: com.electron.app
-productName: electron-work-app
+productName: 项目名称
 directories:
   buildResources: build
+# files:
+#   - '!**/.vscode/*'
+#   - '!src/*'
+#   - '!electron.vite.config.{js,ts,mjs,cjs}'
+#   - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+#   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+#   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 files:
   - '!**/.vscode/*'
   - '!src/*'
   - '!electron.vite.config.{js,ts,mjs,cjs}'
-  - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!**/better-sqlite3/{deps/**/*,src/**/*}'
+
 asarUnpack:
   - resources/**
 win:
-  executableName: electron-work-app
+  icon: build/icon.ico
+    # 配置文件示例，包含输入验证和异常处理逻辑
+  target:
+    -
+      target: "nsis"  # 目标名称，必须为字符串
+      arch: ["x64"]  # 架构列表，必须为非空列表
+  executableName: text33
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
+  oneClick: false # 设置为 false 以提供安装类型选择界面，允许用户选择是否创建桌面图标，允许用户选择安装路径
+  perMachine: true # 设置为 true 将使安装程序默认为所有用户安装应用，这需要管理员权限
+  allowToChangeInstallationDirectory: true # 如果设置为 true，安装程序将允许用户更改安装目录
+  allowElevation: true #  一般情况下，此字段不会被直接使用，权限提升主要依赖于 perMachine 的设定。当perMachine为true，安装程序会请求管理员权限
+  deleteAppDataOnUninstall: true # 如果设置为 true，卸载程序将删除AppData中的所有程序数据
+  createStartMenuShortcut: true   # 如果设置为 true，安装程序将在开始菜单中创建程序快捷方式
 mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
@@ -43,3 +64,4 @@ publish:
   url: https://example.com/auto-updates
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
+

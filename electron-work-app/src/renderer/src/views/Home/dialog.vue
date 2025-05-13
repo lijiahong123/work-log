@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="model" :title="title" width="40%" draggable :close-on-click-modal="false" :overflow="false"
+  <el-dialog v-model="model" :title="title" width="700px" draggable :close-on-click-modal="false" :overflow="false"
     @open="openDialog" @close="closeDialog">
     <!-- 内容 -->
     <el-form ref="ruleFormRef" label-position="top" :model="ruleForm" status-icon :rules="rules" label-width="auto">
@@ -46,7 +46,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive, watch, nextTick } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import { type FormInstance, type FormRules, ElDialog, ElForm, ElFormItem, ElDatePicker, ElInput, ElButton, ElIcon, ElSelect, ElOption, ElInputNumber } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
 import { statusOptions, dialogType } from '@renderer/views/Home/const'
 import type { WorkItem, contentItem, DialogType } from './home'

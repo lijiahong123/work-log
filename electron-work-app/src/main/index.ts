@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+// import { initDatabase } from './sqlite3'
 
 function createWindow(): void {
   // Create the browser window.
@@ -9,6 +10,7 @@ function createWindow(): void {
     width: 900,
     height: 670,
     show: false,
+    // frame: false, // 隐藏标题栏
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -51,6 +53,10 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+  // 初始化数据库
+  // initDatabase()
+
+
 
   createWindow()
 
@@ -59,6 +65,8 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+
+
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

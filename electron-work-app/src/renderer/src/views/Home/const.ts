@@ -27,5 +27,5 @@ export const statusOptions = {
 
 export const dialogType: DialogType = {
   add: '创建',
-  edit: '编辑',
+  edit: '编辑'
 }
