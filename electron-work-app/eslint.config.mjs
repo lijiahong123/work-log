@@ -33,11 +33,13 @@ export default tseslint.config(
           }
         }
       ],
-      'prettier/prettier':[
-        'error',{
+      'prettier/prettier': [
+        'error',
+        {
           endOfLine: 'auto'
         }
-      ]
+      ],
+      '@typescript-eslint/no-explicit-any': 'off'
     }
   },
   eslintConfigPrettier

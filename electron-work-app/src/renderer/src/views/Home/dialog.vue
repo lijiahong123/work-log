@@ -49,7 +49,7 @@ import { ref, reactive, watch, nextTick } from 'vue'
 import { type FormInstance, type FormRules, ElDialog, ElForm, ElFormItem, ElDatePicker, ElInput, ElButton, ElIcon, ElSelect, ElOption, ElInputNumber } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
 import { statusOptions, dialogType } from '@renderer/views/Home/const'
-import type { WorkItem, contentItem, DialogType } from './home'
+import type { WorkItem, contentItem, DialogType } from '../../../../home'
 import { isEmpty } from '../../../../utils/index'
 import { saveWork, editWork } from '@renderer/api/work'
 
@@ -82,7 +82,7 @@ const model = defineModel({
 })
 
 const ruleForm = reactive<WorkItem>({
-  _id: null,
+  id: null,
   date: '',
   contentList: [],
   status: '1',
@@ -118,7 +118,7 @@ const contentList = ref<contentItem[]>([{
 const openDialog = async (): Promise<void> => {
   if (props.type === 'edit') {
     await nextTick()
-    ruleForm._id = props.item._id
+    ruleForm.id = props.item.id
     ruleForm.date = props.item.date
     ruleForm.contentList = [...props.item.contentList]
     ruleForm.status = props.item.status
@@ -142,7 +142,7 @@ const closeDialog = (): void => {
   ruleForm.date = ''
   ruleForm.status = '1'
   ruleForm.progress = 0
-  ruleForm._id = null
+  ruleForm.id = null
   contentList.value = []
   ruleFormRef.value?.clearValidate()
 }

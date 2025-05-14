@@ -6,7 +6,7 @@ import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 import { dateOptions, statusOptions } from './const'
 import Dialog from './dialog.vue';
-import type { contentItem, DialogType, WorkItem } from './home';
+import type { contentItem, DialogType, WorkItem } from '../../../../home';
 import { getWorkList } from '@renderer/api/work';
 import ScrollToTop from '@renderer/components/ScrollTop/index.vue';
 
