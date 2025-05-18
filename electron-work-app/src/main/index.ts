@@ -54,7 +54,6 @@ app.whenReady().then(() => {
   createWindow()
   // 初始化数据库
   initDatabase()
-
   registerIpcHandler()
 
   app.on('activate', function () {

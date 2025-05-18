@@ -24,7 +24,7 @@
 
       <!-- 工作状态 -->
       <el-form-item label="工作状态" prop="status">
-        <div style="width: 100%;">
+        <div style="width: 100%">
           <el-select clearable v-model="ruleForm.status" placeholder="状态" style="width: 45%">
             <el-option v-for="(item, value) in { ...statusOptions, 999: { label: '自定义进度' } }" :key="value"
               :label="item.label" :value="value" />
@@ -110,20 +110,22 @@ const rules = reactive<FormRules<typeof ruleForm>>({
     },
   ],
 })
-const contentList = ref<contentItem[]>([{
-  content: '',
-  id: Date.now(),
-}])
+const contentList = ref<contentItem[]>([
+  {
+    content: '',
+    id: Date.now()
+  }
+])
 
 const openDialog = async (): Promise<void> => {
   if (props.type === 'edit') {
     await nextTick()
     ruleForm.id = props.item.id
     ruleForm.date = props.item.date
-    ruleForm.contentList = [...props.item.contentList]
+    ruleForm.contentList = [...(props.item.contentList || [])]
     ruleForm.status = props.item.status
     ruleForm.progress = props.item.progress
-    contentList.value = [...props.item.contentList]
+    contentList.value = [...(props.item.contentList || [])]
   }
 }
 
@@ -161,12 +163,12 @@ const confim = (): void => {
 
 const submit = async (): Promise<void> => {
   const RequestMethod = {
-    'add': saveWork,
-    'edit': editWork,
+    add: saveWork,
+    edit: editWork
   }
   try {
-    await RequestMethod[props.type](ruleForm)
-    emit('refresh');
+    await RequestMethod[props.type](JSON.parse(JSON.stringify(ruleForm)))
+    emit('refresh')
     model.value = false
   } catch (error) {
     console.error('保存工作失败', error)

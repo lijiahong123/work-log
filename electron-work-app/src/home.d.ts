@@ -8,9 +8,8 @@ export type WorkItem = {
   status: keyof typeof statusOptions | '999'
   date: string
   progress: number
-  contentList: contentItem[]
-  createdAt?: Date
-  updateAt?: Date
+  contentList?: contentItem[]
+  content?: string
 }
 
 export type FilterWorkType = {
@@ -23,7 +22,7 @@ export type DialogType = {
   edit: string
 }
 
-export type ResData<T = null> = {
+export type ResData<T> = {
   code: 0 | 1
   data: T
   msg: string

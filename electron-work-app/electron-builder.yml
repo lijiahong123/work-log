@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: 项目名称
+productName: 智能工作日志
 directories:
   buildResources: build
 # files:
@@ -21,13 +21,13 @@ files:
 asarUnpack:
   - resources/**
 win:
-  icon: build/icon.ico
+  icon: build/icon.png
     # 配置文件示例，包含输入验证和异常处理逻辑
   target:
     -
       target: "nsis"  # 目标名称，必须为字符串
       arch: ["x64"]  # 架构列表，必须为非空列表
-  executableName: text33
+  executableName: work-log
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

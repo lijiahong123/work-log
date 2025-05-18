@@ -1,20 +1,27 @@
 import { ElMessage } from 'element-plus'
 
-// Extend the Window interface to define the type of `api`
-declare global {
-  interface Window {
-    api: {
-      [key: string]: (params?: any) => Promise<any>
-    }
-  }
-}
+async function request<T>({
+  method,
+  params
+}: {
+  method: string
+  params?: any
+}): Promise<{ code: number; data: T; msg?: string }> {
+  try {
+    const res = await window.api[method](params)
+    console.log('++++++++++++++++++++++,', res)
 
-async function request<T>({ method, params }: { method: string; params?: any }): Promise<T> {
-  const res = await window.api[method](params)
-  if (res.code === 1) {
-    ElMessage.error(res.message)
+    if (res?.code === 1) {
+      ElMessage.error(res.msg)
+      return Promise.reject(res)
+    }
+    return res
+  } catch (error) {
+    console.error(error)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    ElMessage.error(errorMessage)
+    return Promise.reject(error)
   }
-  return res
 }
 
 export default request

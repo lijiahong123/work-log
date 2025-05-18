@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue'
 import { ElRow, ElCol, ElSpace, ElButton, ElSelect, ElOption, ElEmpty, ElProgress, ElCard } from 'element-plus'
 import { Plus, Edit, Download } from '@element-plus/icons-vue';
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
@@ -19,7 +19,8 @@ const loading = ref(false)
 
 const requestList = async (): Promise<void> => {
   loading.value = true
-  const res = await getWorkList(filterObj.value)
+  const res = await getWorkList(JSON.parse(JSON.stringify(filterObj.value)))
+
   workList.value = res.data
   loading.value = false
 }
@@ -61,10 +62,10 @@ const statusAndColor = computed(() => {
 })
 
 const downloadTxt = async (): Promise<void> => {
-  const res = await getWorkList(filterObj.value)
+  const res = await getWorkList(JSON.parse(JSON.stringify(filterObj.value)))
   const data = res.data
   const txtContent = data.map((item: WorkItem, idx: number) => {
-    return `${idx + 1}. ${item.date}\n状态：${statusAndColor.value(item).label}\n内容：\n${item.contentList.map((contentItem: contentItem, i) => `  ${i + 1}. ${contentItem.content}`).join('\n')}\n\n`
+    return `${idx + 1}. ${item.date}\n状态：${statusAndColor.value(item).label}\n内容：\n${item.contentList?.map((contentItem: contentItem, i) => `  ${i + 1}. ${contentItem.content}`).join('\n')}\n\n`
   }).join('')
 
   const blob = new Blob([txtContent], { type: 'text/plain' })
@@ -100,7 +101,7 @@ const downloadTxt = async (): Promise<void> => {
         <el-empty v-if="workList.length === 0" :image-size="200" description="暂无数据" />
         <template v-else>
 
-          <DynamicScroller :items="workList" :min-item-size="150" keyField="_id" itemClass="scroll-item" :buffer="0"
+          <DynamicScroller :items="workList" :min-item-size="150" keyField="id" itemClass="scroll-item" :buffer="0"
             :pageMode="true" wrapper-tag="div" wrapper-class="scroll-wrapper">
             <template v-slot="{ item, index, active }">
               <DynamicScrollerItem :item="item" :active="active" :size-dependencies="[item.contentList]"
