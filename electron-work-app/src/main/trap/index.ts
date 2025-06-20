@@ -1,12 +1,12 @@
-import path from 'path'
+// import path from 'path'
 import { app, BrowserWindow, Menu, Tray } from 'electron'
 import { mainTitle } from '../../conf/app.config.json'
+import iconTray from '../../../resources/icon-tray.png?asset'
 
 export function createTray(win: BrowserWindow | null, setQuiting: (boolean) => void): Tray {
   // 托盘图标尺寸， 这里为20px
-  const iconPath = path.resolve('resources/icon-tray.png')
 
-  const tray = new Tray(iconPath)
+  const tray = new Tray(iconTray)
   tray.on('click', () => (win?.isVisible() ? win?.hide() : win?.show()))
 
   const contentMenu = Menu.buildFromTemplate([
