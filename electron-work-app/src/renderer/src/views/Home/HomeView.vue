@@ -122,7 +122,9 @@ const downloadTxt = async (): Promise<void> => {
                       <el-progress :percentage="item.progress" />
                     </template>
                     <ul>
-                      <li v-for="contentItem in item.contentList" :key="contentItem.id">{{ contentItem.content }}</li>
+                      <li v-for="contentItem in item.contentList" :key="contentItem.id">
+                        <pre>{{ contentItem.content }}</pre>
+                      </li>
                     </ul>
                   </el-card>
                   <!-- 虚拟滚动固定间距 -->
